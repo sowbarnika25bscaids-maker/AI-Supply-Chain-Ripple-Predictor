@@ -1,0 +1,11 @@
+event_id,affected_supplier,event,delay_days,impact_level
+1,S7,Port Congestion,5,Medium
+2,S3,Fire,9,Low
+3,S7,Fire,3,High
+4,S2,Machine Failure,9,High
+5,S2,Machine Failure,6,Low
+6,S2,Machine Failure,2,Medium
+7,S5,Port Congestion,4,Medium
+8,S6,Machine Failure,3,Low
+9,S6,Strike,7,Medium
+10,S1,Flood,1,High

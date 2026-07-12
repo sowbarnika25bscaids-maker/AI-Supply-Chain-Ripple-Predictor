@@ -1,0 +1,16 @@
+customer_id,customer_name,city,priority
+C1,Kaur Inc,Tadepalligudem,High
+C2,Deol-Dass,Gwalior,High
+C3,Bhakta Inc,Pallavaram,Low
+C4,Sur-Natarajan,Kalyan-Dombivli,Medium
+C5,Palla LLC,Bally,Medium
+C6,Sengupta-Banerjee,Bhiwani,High
+C7,Mody-Char,Thoothukudi,High
+C8,"Kohli, Andra and Gara",Rohtak,Low
+C9,Borde-Sengupta,Noida,Medium
+C10,Tailor-Manda,Jalgaon,Low
+C11,"Pingle, Mitter and Sinha",Nandyal,Low
+C12,"Sachdeva, Sampath and Nanda",Nagaon,Medium
+C13,Reddy-Khalsa,Anantapur,Low
+C14,Ramanathan-Sankar,Rajahmundry,Medium
+C15,Virk PLC,Ludhiana,Medium
