@@ -14,6 +14,26 @@ import ExecutiveDashboard from "./components/ExecutiveDashboard";
 import ScenarioComparison from "./components/ScenarioComparison";
 import Timeline from "./components/Timeline";
 import Loader from "./components/Loader";
+import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
+import PageWrapper from "./layout/PageWrapper";
+import AnimatedCursor from "./components/AnimatedCursor";
+import FloatingParticles from "./components/FloatingParticles";
+import GlassCard from "./components/GlassCard";
+import HeroBanner from "./components/HeroBanner";
+import AnimatedCounter from "./components/AnimatedCounter";
+import AIRobot from "./components/AIRobot";
+import Notification from "./components/Notification";
+import FloatingIcons from "./components/FloatingIcons";
+import Architecture from "./components/Architecture";
+import TechStack from "./components/TechStack";
+import Features from "./components/Features";
+import AboutProject from "./components/AboutProject";
+import SystemStatus from "./components/SystemStatus";
+import Team from "./components/Team";
+import Contact from "./components/Contact";
+import Workflow from "./components/Workflow";
+import SuccessPopup from "./components/SuccessPopup";
 
 function App() {
 
@@ -22,6 +42,8 @@ function App() {
   const [history, setHistory] = useState([]);
 const [recovered,setRecovered] = useState(false);
 const [loading,setLoading] = useState(false);
+const [showPopup,setShowPopup]=useState(false);
+const [showNotification,setShowNotification]=useState(false);
   const [network, setNetwork] = useState({
     nodes: [],
     edges: [],
@@ -59,6 +81,13 @@ useEffect(() => {
     );
 
     setResult(res.data);
+    setShowNotification(true);
+
+setTimeout(() => {
+
+  setShowNotification(false);
+
+},3000);
 
     setHistory((prev) => [
       res.data,
@@ -113,7 +142,7 @@ useEffect(() => {
   let graphNodes = [];
   let graphEdges = [];
   if (result) {
-    graphNodes = result.affected_nodes.map((n, index) => ({
+    graphNodes = (result?.affected_nodes || []).map((n, index) => ({
       id: n.node,
       position: {
         x: 250,
@@ -132,8 +161,8 @@ useEffect(() => {
     }
   }
   const highlightedNetwork = {
-  nodes: network.nodes.map((node) => {
-    const affected = result?.affected_nodes.find(
+  nodes: (network?.nodes || []).map((node) => {
+    const affected = (result?.affected_nodes || []).find(
       (n) => n.node === node.id
     );
     if (affected) {
@@ -149,17 +178,37 @@ useEffect(() => {
     }
     return node;
   }),
-  edges: network.edges,
+  edges: network?.edges || [],
 };
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-blue-700 mb-8">
-          AI Supply Chain Ripple Predictor
-        </h1>
+    <>
+<AnimatedCursor />
+{showNotification && (
+
+<Notification
+
+title="🚨 Supply Chain Alert"
+
+message="Disruption Detected Successfully"
+
+/>
+
+)}
+{showPopup && (
+<SuccessPopup />
+)}
+<FloatingParticles />
+<AIRobot />
+<FloatingIcons />
+
+    <div className="min-h-screen text-white">
+      <Navbar />
+
+<PageWrapper>
+        <HeroBanner />
         <div className="bg-white rounded-xl shadow-lg p-6 flex gap-4">
           <input
-            className="flex-1 border rounded-lg p-3"
+            className="flex-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             placeholder="Example : Flood at Supplier S3"
             value={event}
             onChange={(e) => setEvent(e.target.value)}
@@ -167,13 +216,13 @@ useEffect(() => {
           <div className="flex gap-3">
             <button
               onClick={simulate}
-              className="bg-blue-600 text-white px-6 rounded-lg hover:bg-blue-700"
+              className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 hover:scale-105 transition-all duration-300 shadow-lg"
             >
               {loading ? "Simulating..." : "Simulate"}
             </button>
             <button
               onClick={downloadReport}
-              className="bg-green-600 text-white px-6 rounded-lg hover:bg-green-700"
+              className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 hover:scale-105 transition-all duration-300 shadow-lg"
             >
               📄 Download Report
             </button>
@@ -195,12 +244,9 @@ useEffect(() => {
           <div className="grid md:grid-cols-2 gap-6 mt-8">
                         {/* Detection */}
 
-            <div className="bg-white shadow rounded-xl p-5">
+            <GlassCard title="🚨 Detection" className="hover-card fade-in">
 
-              <h2 className="text-xl font-bold mb-3">
-                🚨 Detection
-              </h2>
-
+              
               <p>
                 <b>Event :</b> {result.detection.event}
               </p>
@@ -213,11 +259,11 @@ useEffect(() => {
                 <b>Severity :</b> {result.detection.severity}
               </p>
 
-            </div>
+            </GlassCard>
 
             {/* Recovery */}
 
-            <div className="bg-white shadow rounded-xl p-5">
+            <GlassCard title="📦 Recovery" className="hover-card fade-in">
 
               <h2 className="text-xl font-bold mb-3">
                 📦 Recovery
@@ -237,31 +283,41 @@ useEffect(() => {
               </p>
 
               <button
-className="mt-4 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700"
-onClick={()=>setRecovered(true)}
+className="mt-4 bg-green-600 text-white px-5 py-2 rounded-xl hover:bg-green-700 hover:scale-105 transition-all duration-300 shadow-lg"
+onClick={()=>{
+setRecovered(true);
+
+setShowPopup(true);
+
+setTimeout(()=>{
+setShowPopup(false);
+},3000);
+
+}}
 >
 ⚡ Apply Recovery
 </button>
 
-            </div>
+            </GlassCard>
 
             {/* Overall Risk */}
 
-            <div className="bg-white shadow rounded-xl p-5">
+            <GlassCard title="📊 Overall Risk" className="hover-card fade-in">
 
               <h2 className="text-xl font-bold mb-3">
                 📊 Overall Risk
               </h2>
+<h1 className="text-5xl font-bold text-red-500">
 
-             <h1 className="text-5xl font-bold text-red-600">
-
-{
+<AnimatedCounter
+value={
 recovered
 ?
 Math.max(result.risk.overall_risk-40,0)
 :
 result.risk.overall_risk
 }
+/>
 
 %
 
@@ -293,11 +349,11 @@ result.risk.risk_level==="High"
 
 </p>
 
-            </div>
+           </GlassCard>
 
             {/* Complete Supply Chain Network */}
 
-            <div className="bg-white shadow rounded-xl p-5 md:col-span-2">
+            <GlassCard title="🌍 Complete Supply Chain Network" className="hover-card fade-in">
 
               <h2 className="text-xl font-bold mb-3">
                 🌍 Complete Supply Chain Network
@@ -315,7 +371,7 @@ result.risk.risk_level==="High"
     nodes={highlightedNetwork.nodes}
     edges={highlightedNetwork.edges}
 />
-            </div>
+            </GlassCard>
           {/* Ripple Effect Graph */}
             <div className="bg-white shadow rounded-xl p-5 md:col-span-2">
               <h2 className="text-xl font-bold mb-3">
@@ -375,10 +431,36 @@ result.risk.risk_level==="High"
             <EventFeed history={history} />
 
 <Timeline 
+
  history={history}
 />
             <RiskForecast result={result} />
-            <AIChat result={result}/>        
+            <AIChat result={result}/> 
+            <div className="md:col-span-2 mt-8">
+  <Architecture />
+</div>
+<div className="md:col-span-2 mt-8">
+  <TechStack />
+</div>
+<div className="md:col-span-2 mt-8">
+    <Features />
+</div>
+<div className="md:col-span-2 mt-8">
+    <AboutProject />
+</div>
+<div className="md:col-span-2 mt-8">
+    <SystemStatus />
+</div>
+<div className="md:col-span-2 mt-8">
+   <Team />
+</div>
+<div className="md:col-span-2 mt-8">
+   <Contact />
+</div>
+<div className="md:col-span-2 mt-8">
+  <Workflow />
+</div>
+       
             {/* Simulation History */}
             <div className="bg-white shadow rounded-xl p-5 md:col-span-2">
               <h2 className="text-xl font-bold mb-3">
@@ -419,8 +501,14 @@ Built with React • FastAPI • Gemini AI • NetworkX
           </div>
           </>
         )}
-      </div>
-    </div>
-  )
+    
+</PageWrapper>
+
+<Footer />
+
+</div>
+
+</>
+  );
 }
 export default App;

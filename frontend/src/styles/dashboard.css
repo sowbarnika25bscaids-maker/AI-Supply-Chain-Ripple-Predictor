@@ -1,0 +1,17 @@
+body{
+background:#07111f;
+background-image:
+radial-gradient(circle at top,#15315f 0%,transparent 50%),
+radial-gradient(circle at bottom,#111827 0%,transparent 60%);
+color:white;
+}
+
+.card-glow{
+box-shadow:0 0 30px rgba(0,255,255,.2);
+}
+
+.card-glow:hover{
+transform:translateY(-8px);
+transition:.4s;
+box-shadow:0 0 40px cyan;
+}
