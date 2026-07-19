@@ -11,7 +11,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "https://ai-supply-chain-ripple-predictor.vercel.app",
-    ],
+        "https://ai-supply-chain-ripple-pred-sowbarnika25bscaids-makers-projects.vercel.app",
+    ]
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
