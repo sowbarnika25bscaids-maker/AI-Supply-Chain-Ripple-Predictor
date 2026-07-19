@@ -52,7 +52,7 @@ useEffect(() => {
     const loadNetwork = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API}/network`
+          `${import.meta.env.VITE_API_URL}/network`
         );
         setNetwork(res.data);
       } catch (err) {
@@ -114,7 +114,7 @@ setTimeout(() => {
 }
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API}/download-report`,
+        `${import.meta.env.VITE_API_URL}/download-report`,
         {
           event,
         },

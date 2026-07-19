@@ -16,7 +16,7 @@ function AIChat({ result }) {
   try {
 
     const res = await axios.post(
-      `${import.meta.env.VITE_API}/chat`,
+      `${import.meta.env.VITE_API_URL}/chat`,
       {
         question,
         result
